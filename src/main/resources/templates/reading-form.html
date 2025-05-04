@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>New Reading</title></head>
+<body>
+<h2>Add Meter Reading</h2>
+<form th:action="@{/readings/save}" th:object="${reading}" method="post">
+    <label>Customer:</label>
+    <select name="customerId" required>
+        <option th:each="cust : ${customers}" th:value="${cust.id}" th:text="${cust.fullName}"></option>
+    </select><br/>
+
+    <label>Units Consumed:</label>
+    <input type="number" th:field="*{unitsConsumed}" required/><br/>
+
+    <button type="submit">Save</button>
+</form>
+<a href="/readings">Back</a>
+</body>
+</html>

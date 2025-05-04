@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>weclome</h1>
+    <h2>Welcome, <span th:text="${customer.fullName}">User</span></h2>
+
+
+<div>
+    <p><strong>Meter Number:</strong> <span th:text="${customer.meterNumber}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+    <p><strong>City:</strong> <span th:text="${customer.city}"></span></p>
+</div>
+
+<hr/>
+
+<ul>
+    <li><a href="/user/profile">1. View Profile Info</a></li>
+    <li><a href="/user/readings">2. View Meter Reading History</a></li>
+    <li><a href="/user/print-bill">3. Print Monthly Electricity Bill</a></li>
+    <li><a href="/user/current-bill">4. View Current Month Bill</a></li>
+    <li><a href="/user/unpaid-alerts">5. Due Bill Reminder</a></li>
+    <li><a href="/user/month-filter">6. Reading Month Filter</a></li>
+    <li><a href="/user/submit-reading">7. Submit Meter Reading</a></li>
+    <li><a href="/user/help">8. Help / Feedback</a></li>
+    <li><a href="/user/graph">9. Unit Consumption Graph</a></li>
+</ul>
+
+<p><a href="/logout">Logout</a></p>
+</body>
+</html>

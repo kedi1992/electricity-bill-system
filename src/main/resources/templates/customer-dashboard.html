@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Customer Panel</a>
+        <span class="navbar-text ms-auto">
+            Welcome, <span th:text="${customer.fullName}">Customer</span>
+        </span>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Customer Dashboard</h3>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <a href="/customer/profile" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>👤 View Profile</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/readings" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>📜 View Meter Reading History</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/bill/current" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>🧾 View Current Month Bill</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/bill/print" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>🖨️ Print Monthly Electricity Bill</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/bill/reminders" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>🔔 Due Bill Reminder</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/bill/filter" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>📅 Filter By Month</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/readings/submit" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>📝 Submit Meter Reading</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/help" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>💬 Help / Feedback</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/customer/consumption-graph" class="text-decoration-none">
+                <div class="card p-3 h-100">
+                    <h6>📊 View Usage Graph</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/logout" class="text-decoration-none">
+                <div class="card p-3 h-100 border-danger text-danger">
+                    <h6>🚪 Logout</h6>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    &copy; 2025 Electricity Billing System. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

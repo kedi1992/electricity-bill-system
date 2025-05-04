@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Meter Reading History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+    <style>
+        /* Custom Modal Styling */
+        #payModal {
+            display: none;
+            position: fixed;
+            z-index: 1055;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            top: 15%;
+            left: 30%;
+            width: 40%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+        }
+    </style>
+    <script>
+        function openPayPopup(readingId, totalDue) {
+            document.getElementById("readingId").value = readingId;
+            document.getElementById("totalDue").innerText = totalDue;
+            document.getElementById("amountPaid").value = totalDue;
+            document.getElementById("customAmountDiv").style.display = 'none';
+            document.getElementById("payModal").style.display = 'block';
+        }
+
+        function closePayPopup() {
+            document.getElementById("payModal").style.display = 'none';
+        }
+
+        function togglePartial(val) {
+            const customField = document.getElementById("customAmountDiv");
+            const amountField = document.getElementById("amountPaid");
+            if (val === 'PARTIAL') {
+                customField.style.display = 'block';
+                amountField.removeAttribute("readonly");
+            } else {
+                customField.style.display = 'none';
+                amountField.setAttribute("readonly", "readonly");
+            }
+        }
+    </script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Customer Panel</a>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <h3 class="text-center mb-4">📜 Meter Reading History</h3>
+
+    <!-- Filter Form -->
+    <form method="get" th:action="@{/customer/readings}" class="row g-3 align-items-end mb-4">
+        <div class="col-md-4">
+            <label class="form-label">From</label>
+            <input type="date" name="from" th:value="${from}" class="form-control"/>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">To</label>
+            <input type="date" name="to" th:value="${to}" class="form-control"/>
+        </div>
+        <div class="col-md-4 d-grid">
+            <button type="submit" class="btn btn-primary">🔍 Filter</button>
+        </div>
+    </form>
+
+    <!-- Readings Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Units</th>
+                    <th>Total</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${readings}">
+                    <td th:text="${r.readingDate}">2025-01-01</td>
+                    <td th:text="${r.unitsConsumed}">100</td>
+                    <td th:text="${r.totalAmount}">500</td>
+                    <td th:text="${r.amountPaid}">200</td>
+                    <td th:text="${r.totalDue}">300</td>
+                    <td th:text="${r.status}">UNPAID</td>
+                    <td>
+                        <span th:if="${pendingReadingIds.contains(r.id)}" class="text-warning">🔄 Waiting</span>
+                        <button th:if="${!pendingReadingIds.contains(r.id) and r.totalDue > 0}"
+                                type="button"
+                                class="btn btn-sm btn-success"
+                                th:onclick="'openPayPopup(' + ${r.id} + ',' + ${r.totalDue} + ')'">
+                            💳 Pay
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payModal">
+        <h5>💳 Make a Payment</h5>
+        <form th:action="@{/customer/pay}" method="post" onsubmit="return confirm('Are you sure you want to proceed with this payment?')">
+            <input type="hidden" name="readingId" id="readingId"/>
+
+            <p><strong>Total Due: ₹<span id="totalDue"></span></strong></p>
+
+            <label class="form-label">Payment Mode:</label><br/>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMode" value="FULL" checked onclick="togglePartial('FULL')"/>
+                <label class="form-check-label">Full</label>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="paymentMode" value="PARTIAL" onclick="togglePartial('PARTIAL')"/>
+                <label class="form-check-label">Partial</label>
+            </div>
+
+            <div id="customAmountDiv" class="mb-3" style="display:none;">
+                <label class="form-label">Enter Amount</label>
+                <input type="number" name="amountPaid" id="amountPaid" step="0.01" class="form-control"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Transaction ID</label>
+                <input type="text" name="transactionId" required class="form-control"/>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Pay Now</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="closePayPopup()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Back Links -->
+    <div class="mt-4 text-center">
+        <a href="/customer/dashboard" class="btn btn-secondary me-2">← Back to Dashboard</a>
+        <a href="/logout" class="btn btn-danger">🚪 Logout</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    &copy; 2025 Electricity Billing System. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

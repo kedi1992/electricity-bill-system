@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Customers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Customer List</h3>
+        <a href="/admin/customers/add" class="btn btn-primary">+ Add Customer</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Meter No</th>
+                    <th>City</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cust : ${customers}">
+                    <td th:text="${cust.fullName}">John</td>
+                    <td th:text="${cust.address}">Pune</td>
+                    <td th:text="${cust.meterNumber}">MTR001</td>
+                    <td th:text="${cust.city}">Pune</td>
+                    <td th:text="${cust.email}">email@example.com</td>
+                    <td>
+                        <a th:href="@{/admin/customers/edit/{id}(id=${cust.id})}" class="btn btn-sm btn-warning">Edit</a>
+                        <a th:href="@{/admin/customers/delete/{id}(id=${cust.id})}" class="btn btn-sm btn-danger ms-1">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <a href="/admin/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    &copy; 2025 Electricity Billing System. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

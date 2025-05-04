@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <span class="navbar-text ms-auto">Welcome, <span th:text="${adminName}">Admin</span></span>
+    </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <div class="col">
+            <a href="/admin/customers" class="text-decoration-none">
+                <div class="card p-4 h-100">
+                    <h5 class="text-primary">👥 Manage Customers</h5>
+                    <p>View and update registered customer records</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="/admin/charges" class="text-decoration-none">
+                <div class="card p-4 h-100">
+                    <h5 class="text-primary">💰 Manage Bill Charges</h5>
+                    <p>Update tax, service fee, and surcharges</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="/admin/add-reading" class="text-decoration-none">
+                <div class="card p-4 h-100">
+                    <h5 class="text-primary">📈 Add Meter Reading</h5>
+                    <p>Enter latest meter readings for customers</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="/admin/view-bills" class="text-decoration-none">
+                <div class="card p-4 h-100">
+                    <h5 class="text-primary">📄 View All Bills</h5>
+                    <p>Review generated bills and statuses</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="/admin/payments/pending" class="text-decoration-none">
+                <div class="card p-4 h-100">
+                    <h5 class="text-primary">📝 Approve Pending Payments</h5>
+                    <p>Approve manually verified bill payments</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/logout" class="btn btn-outline-secondary">Logout</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    &copy; 2025 Electricity Billing System. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -2,6 +2,10 @@ package com.electricity.system.controller;
 
 import com.electricity.system.model.Customer;
 import com.electricity.system.service.CustomerService;
+
+// import java.security.Principal;
+// import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,4 +47,5 @@ public class CustomerController {
         customerService.deleteById(id);
         return "redirect:/customers";
     }
+
 }

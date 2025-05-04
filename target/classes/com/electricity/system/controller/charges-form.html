@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add/Edit Billing Charge</title>
+</head>
+<body>
+<h2 th:text="${charge.id == null ? 'Add New Charge' : 'Edit Charge'}"></h2>
+
+<form th:action="@{/admin/charges/save}" th:object="${charge}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Charge Name:</label>
+    <input type="text" th:field="*{chargeName}" required/><br/><br/>
+
+    <label>Charge Type:</label>
+    <select th:field="*{chargeType}">
+        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+    </select><br/><br/>
+
+    <label>Value:</label>
+    <input type="number" th:field="*{value}" step="0.01" required/><br/><br/>
+
+    <label>Effective From:</label>
+    <input type="date" th:field="*{effectiveFrom}" required/><br/><br/>
+
+    <label>Active:</label>
+    <input type="checkbox" th:field="*{active}"/><br/><br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<p><a href="/admin/charges">Back to Charges List</a></p>
+</body>
+</html>

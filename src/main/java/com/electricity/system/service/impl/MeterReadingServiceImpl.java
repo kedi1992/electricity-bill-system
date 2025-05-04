@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -124,12 +125,25 @@ public class MeterReadingServiceImpl implements MeterReadingService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "readingDate"));
         return meterReadingRepository.findAll(spec, pageable);
     }
-
+    
     // @Override
     // public MeterReading getById(Long id) {
     //     return meterReadingRepository.findById(id).orElse(null);
     // }
 
+     @Override
+    public List<Object[]> getLast12MonthUsage(Long customerId) {
+        List<Object[]> raw = meterReadingRepository.getUsageHistory(customerId);
+
+        List<Object[]> result = new ArrayList<>();
+        int count = 0;
+        for (Object[] row : raw) {
+            if (count == 12) break;
+            result.add(row);
+            count++;
+        }
+        return result;
+    }
 
 
 }

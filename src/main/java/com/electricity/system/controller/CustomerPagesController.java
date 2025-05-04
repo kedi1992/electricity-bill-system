@@ -101,8 +101,8 @@ public class CustomerPagesController {
         return "customer/help";
     }
 
-    @GetMapping("/customer/consumption-graph")
-    public String graph() {
-        return "customer/consumption-graph";
-    }
+    // @GetMapping("/customer/consumption-graph")
+    // public String graph() {
+    //     return "customer/consumption-graph";
+    // }
 }

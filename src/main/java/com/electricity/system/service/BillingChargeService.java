@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface BillingChargeService {
     List<BillingCharge> getActiveCharges();
+    // List<Object[]> getLast12MonthsUsage(Long customerId);
 }

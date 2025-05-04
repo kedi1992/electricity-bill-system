@@ -16,7 +16,7 @@ public interface MeterReadingService {
     List<MeterReading> filterBills(Integer month, Integer year, Long customerId, String status);
     Page<MeterReading> filterBillsPaginated(Integer month, Integer year, Long customerId, String status, int page, int size);
 
-
+    List<Object[]> getLast12MonthUsage(Long customerId);
     
 
     

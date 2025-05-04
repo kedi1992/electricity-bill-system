@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Meter Readings</title></head>
+<body>
+<h2>Meter Readings</h2>
+<a href="/readings/add">Add New Reading</a>
+<table border="1">
+    <tr>
+        <th>Customer</th>
+        <th>Date</th>
+        <th>Units</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="r : ${readings}">
+        <td th:text="${r.customer.fullName}">John</td>
+        <td th:text="${r.readingDate}">2024-01-01</td>
+        <td th:text="${r.unitsConsumed}">150</td>
+        <td th:text="${r.totalAmount}">1000.0</td>
+        <td>
+            <span th:text="${r.status}">Unpaid</span>
+            <span th:if="${r.status == 'Unpaid'}">
+                | <a th:href="@{'/readings/pay/' + ${r.id}}">Mark as Paid</a>
+            </span>
+        </td>
+        <td><a th:href="@{'/readings/delete/' + ${r.id}}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

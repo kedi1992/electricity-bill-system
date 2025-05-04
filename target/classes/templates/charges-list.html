@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Billing Charges</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>Billing Charges Configuration</h3>
+        <a href="/admin/charges/add" class="btn btn-primary">+ Add New Charge</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Charge Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>Effective From</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${charges}">
+                    <td th:text="${c.chargeName}">School Tax</td>
+                    <td th:text="${c.chargeType}">PERCENTAGE</td>
+                    <td th:text="${c.value}">5.0</td>
+                    <td th:text="${c.effectiveFrom}">2025-04-01</td>
+                    <td>
+                        <span th:text="${c.active ? 'Yes' : 'No'}"
+                              th:classappend="${c.active ? 'text-success fw-bold' : 'text-danger fw-bold'}">
+                            Yes
+                        </span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/admin/charges/edit/' + ${c.id}}" class="btn btn-sm btn-warning">Edit</a>
+                        <a th:href="@{'/admin/charges/delete/' + ${c.id}}" class="btn btn-sm btn-danger ms-1">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a href="/admin/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    &copy; 2025 Electricity Billing System. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

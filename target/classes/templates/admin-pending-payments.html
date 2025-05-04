@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pending Payments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <h3 class="mb-4 text-center">📝 Pending Bill Payments</h3>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Customer</th>
+                    <th>Meter No</th>
+                    <th>Billing Date</th>
+                    <th>Payment Mode</th>
+                    <th>Amount Paid</th>
+                    <th>Transaction ID</th>
+                    <th>Requested At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${pendingPayments}">
+                    <td th:text="${p.customer.fullName}">John</td>
+                    <td th:text="${p.customer.meterNumber}">MT00001</td>
+                    <td th:text="${p.reading.readingDate}">2025-01-01</td>
+                    <td th:text="${p.paymentMode}">FULL</td>
+                    <td th:text="${p.amountPaid}">500</td>
+                    <td th:text="${p.transactionId}">TX12345</td>
+                    <td th:text="${#temporals.format(p.requestedAt, 'yyyy-MM-dd HH:mm')}">2025-04-12</td>
+                    <td>
+                        <form th:action="@{'/admin/payments/confirm/' + ${p.id}}" method="post">
+                            <button type="submit" class="btn btn-success btn-sm">✔ Approve</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Records Message -->
+    <p th:if="${pendingPayments == null or pendingPayments.isEmpty()}" class="text-muted text-center">No pending payment requests found.</p>
+
+    <div class="mt-4 text-center">
+        <a href="/admin/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    &copy; 2025 Electricity Billing System. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

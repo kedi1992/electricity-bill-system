@@ -38,11 +38,17 @@ public class AdminCustomerController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute Customer customer) {
-        customer.setActivationStatus("PENDING");
-        customer.setActivationCode("1234");
-        customerService.save(customer);
-        return "redirect:/admin/customers";
+    public String saveCustomer(@ModelAttribute Customer customer, Model model) {
+        try{
+            customer.setActivationStatus("PENDING");
+            customer.setActivationCode("1234");
+            customerService.save(customer);
+            return "redirect:/admin/customers";
+        } catch (RuntimeException ex) {
+            model.addAttribute("customer", customer);
+            model.addAttribute("error", ex.getMessage());
+            return "admin-customer-form";
+        }
     }
 
     @GetMapping("/edit/{id}")

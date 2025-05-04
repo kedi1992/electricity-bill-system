@@ -18,4 +18,10 @@ public class BillingChargeServiceImpl implements BillingChargeService {
     public List<BillingCharge> getActiveCharges() {
         return billingChargeRepository.findByActiveTrue();
     }
+
+    // @Override
+    // public List<Object[]> getLast12MonthsUsage(Long customerId) {
+    //     return billingChargeRepository.getLast12MonthsUsage(customerId);
+    // }
+
 }
